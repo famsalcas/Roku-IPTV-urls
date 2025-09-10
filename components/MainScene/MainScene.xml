@@ -2,27 +2,55 @@
 
 <!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
 
-<component name="MainScene" extends="Scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://rokudev.roku.com/rokudev/schema/RokuSceneGraph.xsd">
-<script type="text/brightscript" uri="pkg:/components/MainScene/MainScene.brs"/>
-<children>
-	<LabelList
-		id="list"
-		translation = "[100, 100]">
-		<Font role="font" uri="pkg:/fonts/Roboto-Regular.ttf" size="36"/>
-		<Font role="focusedFont" uri="pkg:/fonts/Roboto-Medium.ttf" size="36"/>
-		<Font role="sectionDividerFont" uri="pkg:/fonts/Roboto-Thin.ttf" size="24"/>
-	</LabelList>
-	<Video
-		id="Video"
-		translation = "[800, 100]"
-		width = "960"
-		height= "540"/>
+<component name="MainScene" extends="Scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rokudev="http://rokudev.roku.com/rokudev/schema/RokuSceneGraph.xsd">
+    <script type="text/brightscript" uri="pkg:/components/MainScene/MainScene.brs"/>
+    <children>
 
-	<get_channel_list
-		id="get_channel_list"/>
+        <!-- Grid de canales: 3 filas x 4 columnas (12 por pantalla) -->
+        <MarkupGrid
+            id="grid"
+            translation = "[100, 60]"
+            itemSize="[240,180]"
+            numRows="3"
+            numColumns="4"
+            drawFocusFeedback="true"
+            focusBitmapUri="pkg:/images/focus_rect.png"
+            >
+            <itemComponent>
+                <Group>
+                    <Poster
+                        id="logo"
+                        width="220"
+                        height="130"
+                        loadDisplayMode="scaleToFit"
+                        uriField="icon"
+                        />
+                    <Label
+                        id="title"
+                        width="220"
+                        height="40"
+                        translation="[0,140]"
+                        horizAlign="center"
+                        vertAlign="top"
+                        textField="title"
+                        />
+                </Group>
+            </itemComponent>
+        </MarkupGrid>
 
-	<save_feed_url
-		id="save_feed_url"/>
+        <!-- Reproductor: lo dejo donde estaba (no toqué la lógica de reproducción) -->
+        <Video
+            id="Video"
+            translation = "[800, 100]"
+            width = "960"
+            height= "540"/>
 
-</children>
+        <!-- Tareas/Controles existentes (sin tocar) -->
+        <get_channel_list
+            id="get_channel_list"/>
+
+        <save_feed_url
+            id="save_feed_url"/>
+
+    </children>
 </component>
