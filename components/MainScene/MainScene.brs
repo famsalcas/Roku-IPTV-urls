@@ -7,7 +7,9 @@ sub init()
     m.get_channel_list.ObserveField("content", "SetContent") 'When content is ready, populate grid
 
     m.grid = m.top.FindNode("grid")
-    m.grid.ObserveField("itemSelected", "setChannel")
+    m.grid.ObserveField("rowItemSelected", "setChannel")
+
+
 
     m.video = m.top.FindNode("Video")
     m.video.ObserveField("state", "checkState")
@@ -59,9 +61,14 @@ end sub
 ' Al seleccionar un item en la grid
 ' ---------------------------------------------------
 sub setChannel()
-    idx = m.grid.itemSelected
-    if idx < 0 return
+    sel = m.grid.rowItemSelected
+    if sel = invalid or sel.Count() < 2 return
+    row = sel[0]
+    col = sel[1]
+    idx = row * m.grid.numColumns + col
+    if idx < 0 or idx >= m.grid.content.Count() return
     content = m.grid.content[idx]
+
     if content = invalid return
 
     ' Prepare content associative for video node
